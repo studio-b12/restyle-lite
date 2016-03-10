@@ -13,9 +13,8 @@
     empty = [],
     restyle;
 
-  function ReStyle(component, node, css, prefixes, doc) {
+  function ReStyle(component, css, prefixes, doc) {
     this.component = component;
-    this.node = node;
     this.css = css;
     this.prefixes = prefixes;
     this.doc = doc;
@@ -31,7 +30,6 @@
     ReStyle.call(
       this,
       substitute.component,
-      substitute.node,
       substitute.css,
       substitute.prefixes,
       substitute.doc
@@ -168,24 +166,8 @@
         c = component + ' ';
       }
       var c, d = doc || (doc = document),
-        css = parse(c, obj, prefixes || (prefixes = restyle.prefixes)),
-        head = d.head ||
-          d.getElementsByTagName('head')[0] ||
-          d.documentElement,
-        node = head.insertBefore(
-          d.createElement('style'),
-          head.lastChild
-        );
-      node.type = 'text/css';
-      // it should have been
-      // if ('styleSheet' in node) {}
-      // but JSLint bothers in that way
-      if (node.styleSheet) {
-        node.styleSheet.cssText = css;
-      } else {
-        node.appendChild(d.createTextNode(css));
-      }
-      return new ReStyle(component, node, css, prefixes, doc);
+        css = parse(c, obj, prefixes || (prefixes = restyle.prefixes));
+      return new ReStyle(component, css, prefixes, doc);
     };
   }
 
