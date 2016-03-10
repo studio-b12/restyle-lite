@@ -26,7 +26,6 @@
         this.component, substitute, this.prefixes, this.doc
       );
     }
-    this.remove();
     ReStyle.call(
       this,
       substitute.component,
@@ -40,13 +39,6 @@
     overwrite: replace,
     replace: replace,
     set: replace,
-    remove: function () {
-      var node = this.node,
-        parentNode = node.parentNode;
-      if (parentNode) {
-        parentNode.removeChild(node);
-      }
-    },
     valueOf: function () {
       return this.css;
     }
