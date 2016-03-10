@@ -19,6 +19,19 @@ restyle-lite
 * restyle-lite behaves the same in node and in browsers.
 * We’ve got rid of all non-CommonJS builds.
 
+We’ve left all that we need:
+
+```js
+const restyle = require('restyle-lite');
+
+▸ restyle({
+    '.a': {
+      'margin-top': '10px',
+      'background-color': 'blue',
+    },
+  });
+◂ '.a:{margin-top:10px;background-color:blue;}'
+
 ---
 
 **new** 10 minutes intro about [restyle.js in vimeo](https://vimeo.com/86671874)
