@@ -13,35 +13,6 @@
     empty = [],
     restyle;
 
-  function ReStyle(component, css, doc) {
-    this.component = component;
-    this.css = css;
-    this.doc = doc;
-  }
-
-  function replace(substitute) {
-    if (!(substitute instanceof ReStyle)) {
-      substitute = restyle(
-        this.component, substitute, this.doc
-      );
-    }
-    ReStyle.call(
-      this,
-      substitute.component,
-      substitute.css,
-      substitute.doc
-    );
-  }
-
-  ReStyle.prototype = {
-    overwrite: replace,
-    replace: replace,
-    set: replace,
-    valueOf: function () {
-      return this.css;
-    }
-  };
-
   function camelReplace(m, $1, $2) {
     return $1 + '-' + $2.toLowerCase();
   }
@@ -89,9 +60,10 @@
     return css.join('');
   }
 
-  function parse(component, obj) {
+  function parse(obj) {
     var
       css = [],
+      component = '',
       at, cmp, special, k, v,
       same, key, value, i, j;
     for (key in obj) {
@@ -120,39 +92,7 @@
     return css.join('');
   }
 
-  // hack to avoid JSLint shenanigans
-  if ({undefined: true}[typeof document]) {
-    restyle = function (component, obj) {
-      if (typeof component === 'object') {
-        obj = component;
-        component = '';
-      } else {
-        component += ' ';
-      }
-      return parse(component, obj || empty);
-    };
-    // useful for different style of require
-    restyle.restyle = restyle;
-  } else {
-    restyle = function (component, obj, doc) {
-      if (typeof component === 'object') {
-        obj = component;
-        c = (component = '');
-      } else {
-        c = component + ' ';
-      }
-      var c, d = doc || (doc = document),
-        css = parse(c, obj);
-      return new ReStyle(component, css, doc);
-    };
-  }
-
-  return restyle;
-
-/**
- * not sure if TODO since this might be prependend regardless the parser
- *  @namespace url(http://www.w3.org/1999/xhtml);
- *  @charset "UTF-8";
- */
-
+  return function restyle (obj) {
+    return parse(obj);
+  };
 }({}))

@@ -15,6 +15,8 @@ restyle-lite
 * We don’t add any prefixes.
 * We don’t support `restyle.customElement` (it probably wasn’t documented anyway).
 * We don’t support JS-based animations.
+* We don’t support a custom `component` or `document`.
+* restyle-lite behaves the same in node and in browsers.
 
 ---
 
@@ -180,86 +182,12 @@ myStyle.remove();
 ```
 
 
-### New In Version 0.4
-It is now possible to simplify transitions through the `transition` public static method method.
-```js
-var transition = restyle.transition(
-  genericElement,
-  from: {
-    opacity: '0',
-    height: 34
-  },
-  to: {
-    opacity: '1' // will keep height 34
-  },
-  function onTransitionEnd(e) {
-    console.log('transition completed');
-    e.detail.clean(); // remove related styles
-  }
-);
-```
-
-It is also possible to create multiple transitions from a starting point.
-```js
-var transition = restyle.transition(
-  genericElement,
-  from: {
-    opacity: '0',
-    height: 0
-  },
-  to: [{
-    height: 200 // will keep opacity '0'
-  }{
-    opacity: '1' // will keep height 200
-  }],
-  function onTransitionEnd(e) {
-    console.log('transition completed');
-    e.detail.clean(); // remove related styles
-  }
-);
-```
-In latter case the final callback happens when last transition is completed.
-
-At any time it is possible to ignore the callback via `transition.drop()` or to clean all styles and transitions via `transition.clean()`.
-
-Please note that unless explicitly done, related styles will not be dropped.
-
-If you need to keep the transition end CSS please add a class and after that clean everything else.
-
-
-
-### New In Version 0.2
-The signature has been improved to accept a first argument representing a generic container/component prefix.
-```js
-var compStyle = restyle('my-component-name', {
-  'div.large': {
-    width: '100%'
-  },
-  span: {
-    display: 'none'
-  }
-});
-```
-Above code will produce a CSS similar to the following one:
-```css
-my-component-name div.large {
-  width: 100%;
-}
-my-component-name span {
-  display: none;
-}
-```
-This can be very handy when you have to style [Custom Elements](https://github.com/WebReflection/document-register-element#document-register-element) or generic reusable web components.
-
-
 ### Signature
 ```javascript
 
 restyle(
-  [component, ] // an optional string used to auto prefix all styles under a node/component
   Object        // a JSONish object as spec'd
-  [, document]  // browsers only, eventually a different document from another realm
-):Object;
+) : String
 
 ```
 
