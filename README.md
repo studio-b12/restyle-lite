@@ -1,7 +1,21 @@
-restyle
-=======
+[![Travis – build status
+](https://img.shields.io/travis/studio-b12/restyle-lite/master.svg?style=flat-square
+)](https://travis-ci.org/studio-b12/restyle-lite
+) [![David – status of dependencies
+](https://img.shields.io/david/studio-b12/restyle-lite.svg?style=flat-square
+)](https://david-dm.org/studio-b12/restyle-lite
+)
 
-[![build status](https://secure.travis-ci.org/WebReflection/restyle.png)](http://travis-ci.org/WebReflection/restyle)
+restyle-lite
+============
+
+---
+
+**Note:** this is just [restyle](https://github.com/WebReflection/restyle) stripped of some features:
+
+* We don’t add the generated CSS to the `<head>` of the document.
+
+---
 
 **new** 10 minutes intro about [restyle.js in vimeo](https://vimeo.com/86671874)
 

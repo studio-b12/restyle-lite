@@ -1,9 +1,9 @@
 {
   "version": "0.5.1",
   "license": "MIT",
-  "name": "restyle",
+  "name": "restyle-lite",
   "description": "a JS to CSS transformer",
-  "homepage": "https://github.com/WebReflection/restyle",
+  "homepage": "https://github.com/studio-b12/restyle-lite",
   "keywords": [
     "CSS",
     "JS",
@@ -14,6 +14,13 @@
     "name": "Andrea Giammarchi",
     "web": "http://webreflection.blogspot.com/"
   },
+  "contributors": [
+    {
+      "name": "Tomek Wiszniewski",
+      "email": "t.wiszniewski@gmail.com",
+      "web": "https://github.com/tomekwi"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/WebReflection/restyle.git"
