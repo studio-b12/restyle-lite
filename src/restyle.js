@@ -376,35 +376,6 @@
     }(window));
   }
 
-  restyle.customElement = function (name, constructor, proto) {
-    var
-      key,
-      ext = 'extends',
-      prototype = Object.create(constructor.prototype),
-      descriptor = {prototype: prototype},
-      has = descriptor.hasOwnProperty,
-      isExtending = proto && has.call(proto, ext)
-    ;
-    if (isExtending) {
-      descriptor[ext] = proto[ext];
-    }
-    for (key in proto) {
-      if (key !== ext) {
-        prototype[key] = (
-          key === 'css' ?
-            restyle(
-              isExtending ?
-               (proto[ext] + '[is=' + name + ']') :
-               name,
-              proto[key]
-            ) :
-            proto[key]
-        );
-      }
-    }
-    return document.registerElement(name, descriptor);
-  };
-
   return restyle;
 
 /**

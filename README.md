@@ -13,6 +13,7 @@ restyle-lite
 
 * We don’t add the generated CSS to the `<head>` of the document.
 * We don’t add any prefixes.
+* We don’t support `restyle.customElement` (it probably wasn’t documented anyway)
 
 ---
 
