@@ -9,8 +9,6 @@
 restyle-lite
 ============
 
----
-
 **Note:** this is just [restyle](https://github.com/WebReflection/restyle) stripped of some features:
 
 * We don’t add the generated CSS to the `<head>` of the document.
