@@ -13,24 +13,22 @@
     empty = [],
     restyle;
 
-  function ReStyle(component, css, prefixes, doc) {
+  function ReStyle(component, css, doc) {
     this.component = component;
     this.css = css;
-    this.prefixes = prefixes;
     this.doc = doc;
   }
 
   function replace(substitute) {
     if (!(substitute instanceof ReStyle)) {
       substitute = restyle(
-        this.component, substitute, this.prefixes, this.doc
+        this.component, substitute, this.doc
       );
     }
     ReStyle.call(
       this,
       substitute.component,
       substitute.css,
-      substitute.prefixes,
       substitute.doc
     );
   }
@@ -48,15 +46,12 @@
     return $1 + '-' + $2.toLowerCase();
   }
 
-  function create(key, value, prefixes) {
+  function create(key, value) {
     var
       css = [],
       pixels = typeof value === 'number' ? 'px' : '',
       k = key.replace(camelFind, camelReplace),
       i;
-    for (i = 0; i < prefixes.length; i++) {
-      css.push('-', prefixes[i], '-', k, ':', value, pixels, ';');
-    }
     css.push(k, ':', value, pixels, ';');
     return css.join('');
   }
@@ -65,7 +60,7 @@
     return previous.length ? previous + '-' + key : key;
   }
 
-  function generate(css, previous, obj, prefixes) {
+  function generate(css, previous, obj) {
     var key, value, i;
     for (key in obj) {
       if (has.call(obj, key)) {
@@ -74,20 +69,19 @@
             value = obj[key];
             for (i = 0; i < value.length; i++) {
               css.push(
-                create(property(previous, key), value[i], prefixes)
+                create(property(previous, key), value[i])
               );
             }
           } else {
             generate(
               css,
               property(previous, key),
-              obj[key],
-              prefixes
+              obj[key]
             );
           }
         } else {
           css.push(
-            create(property(previous, key), obj[key], prefixes)
+            create(property(previous, key), obj[key])
           );
         }
       }
@@ -95,7 +89,7 @@
     return css.join('');
   }
 
-  function parse(component, obj, prefixes) {
+  function parse(component, obj) {
     var
       css = [],
       at, cmp, special, k, v,
@@ -113,17 +107,11 @@
         for (i = 0; i < value.length; i++) {
           v = value[i];
           if (special) {
-            j = prefixes.length;
-            while (j--) {
-              css.push('@-', prefixes[j], '-', k, '{',
-                parse(cmp, v, [prefixes[j]]),
-                '}');
-            }
-            css.push(key, '{', parse(cmp, v, prefixes), '}');
+            css.push(key, '{', parse(cmp, v), '}');
           } else {
             css.push(
               same ? key : component + key,
-              '{', generate([], '', v, prefixes), '}'
+              '{', generate([], '', v), '}'
             );
           }
         }
@@ -134,32 +122,28 @@
 
   // hack to avoid JSLint shenanigans
   if ({undefined: true}[typeof document]) {
-    // in node, by default, no prefixes are used
-    restyle = function (component, obj, prefixes) {
+    restyle = function (component, obj) {
       if (typeof component === 'object') {
-        prefixes = obj;
         obj = component;
         component = '';
       } else {
         component += ' ';
       }
-      return parse(component, obj, prefixes || empty);
+      return parse(component, obj || empty);
     };
     // useful for different style of require
     restyle.restyle = restyle;
   } else {
-    restyle = function (component, obj, prefixes, doc) {
+    restyle = function (component, obj, doc) {
       if (typeof component === 'object') {
-        doc = prefixes;
-        prefixes = obj;
         obj = component;
         c = (component = '');
       } else {
         c = component + ' ';
       }
       var c, d = doc || (doc = document),
-        css = parse(c, obj, prefixes || (prefixes = restyle.prefixes));
-      return new ReStyle(component, css, prefixes, doc);
+        css = parse(c, obj);
+      return new ReStyle(component, css, doc);
     };
   }
 
@@ -420,13 +404,6 @@
     }
     return document.registerElement(name, descriptor);
   };
-
-  restyle.prefixes = [
-    'webkit',
-    'moz',
-    'ms',
-    'o'
-  ];
 
   return restyle;
 

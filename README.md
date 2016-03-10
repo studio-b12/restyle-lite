@@ -12,6 +12,7 @@ restyle-lite
 **Note:** this is just [restyle](https://github.com/WebReflection/restyle) stripped of some features:
 
 * We don’t add the generated CSS to the `<head>` of the document.
+* We don’t add any prefixes.
 
 ---
 
@@ -297,13 +298,6 @@ This can be very handy when you have to style [Custom Elements](https://github.c
 restyle(
   [component, ] // an optional string used to auto prefix all styles under a node/component
   Object        // a JSONish object as spec'd
-  [, prefixes]  // optional prefixes
-                // as node.js module this is by default an empty array
-                //  generating prefixes-less CSS for other pre/post processors
-                // in browsers this is by default all vendors prefixes
-                //  without bothering much that -webkit-background does not even exist
-                //  browsers will simply ignore CSS that is meaningless
-
   [, document]  // browsers only, eventually a different document from another realm
 ):Object;
 
@@ -400,7 +394,6 @@ Here a list of bullets to support `restyle` idea, grouped by usage.
 #### As DOM Runtime
 
   * all values, groups, and even keys, can be generated at runtime after features detection or states
-  * all vendor prefixes are placed automatically, no redundant CSS to write or download
   * all changes are confined in a single style element that can be dropped at any time
   * it can be used to style custom components preserving the overall application size
   * it fits in less than 1KB minzipped
@@ -677,10 +670,9 @@ var flex = restyle({
 
 ### F.A.Q.
 
-  * **why so many prefixes in the DOM version ?** Not influent at runtime, invisible via node, but I've hopefully [replied to this here](http://webreflection.blogspot.com/2014/02/restylejs-simplified-css-approach.html#prefixes) already ;-)
   * **should I serve all CSS only via `restyle` at runtime?** you can do whatever you want. You can combine normal CSS with restyle in order to add special FX only or new features where prefixes are a mess. You can use restyle only to fix things that need to be fixed for browsers that support JS. You can use only `restyle` if your app depends on JavaScript so there's no way it's going to be used or useful at all without JS enabled. You chose, don't blame the tool, it's here to help when needed ;-)
   * **what's the difference with absurd.js?** by the time I am writing this, `restyle` works better for WebApp development at runtime and wins in size and performance but it cannot compete against `absurd` on the server side since it does nothing that `absurd` does, only the object syntax is similar. Bear in mind I've said **similar** but **not identical**, `absurd.js` is by design not able to solve a property name from a tagName while `restyle` simply represents CSS without magic involved.
-  * **can I use `restyle` for serving both server and client at runtime?** Yes, again, you can use `restyle` as you wish. On the server, you can use same logic you would apply on the client and maybe chose to serve that pre-processed file inside a noscript as external link, using `restyle` for all other JS centric cases or for **graceful enhancement** without compromising the layout. CSS modules can be shared, reused, the same, both pre-processed as CSS behind other pre-processors, or just with all prefixes generated at runtime for more complex scenarios. Go wild, still respect your site/app users ;-)
+  * **can I use `restyle` for serving both server and client at runtime?** Yes, again, you can use `restyle` as you wish. On the server, you can use same logic you would apply on the client and maybe chose to serve that pre-processed file inside a noscript as external link, using `restyle` for all other JS centric cases or for **graceful enhancement** without compromising the layout. CSS modules can be shared, reused, the same, both pre-processed as CSS behind other pre-processors. Go wild, still respect your site/app users ;-)
   * **didn't Netscape with [JSSS](http://en.wikipedia.org/wiki/JavaScript_Style_Sheets) ... bla bla?** probably you didn't read what `restyle` is, neither what JSSS proposal was. Please take a minute to understand again what is this about, and feel free to use JSSS if you think that's even an option.
 
 If you have any hint about some syntax that could improve `restyle` ease please let me know, thanks.
