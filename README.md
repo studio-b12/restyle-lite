@@ -13,7 +13,8 @@ restyle-lite
 
 * We don’t add the generated CSS to the `<head>` of the document.
 * We don’t add any prefixes.
-* We don’t support `restyle.customElement` (it probably wasn’t documented anyway)
+* We don’t support `restyle.customElement` (it probably wasn’t documented anyway).
+* We don’t support JS-based animations.
 
 ---
 
@@ -225,48 +226,6 @@ Please note that unless explicitly done, related styles will not be dropped.
 
 If you need to keep the transition end CSS please add a class and after that clean everything else.
 
-
-
-### New In Version 0.3
-It is now possible to simplify animations through the `animate` method.
-
-```js
-// a generic animation style
-var glowAnimation = restyle({
-  '@keyframes glow-animation': {
-    '0%':   { boxShadow: '0px 0px 0px 0px rgba(255,255,255,1)' },
-    '100%': { boxShadow: '0px 0px 32px 16px rgba(255,255,255,1)' }
-  },
-  '.glow': {
-    animation: {
-      name: 'glow-animation',
-      duration: '1s',
-      direction: 'normal'
-    }
-  }
-});
-
-// glowing function
-function glow(el, callback) {
-  el.classList.add('glow');
-  return glowAnimation.animate(el, 'glow-animation', callback);
-}
-
-// whenever is needed
-document.querySelector('#link')
-  .addEventListener('click', function (e) {
-    // glow
-    glow(e.currentTarget, function (event) {
-      console.log(event);
-    });
-  });
-
-```
-The fallback is based on `setTimeout` and the returned object has a `.drop()` method able to cancel the animation end event.
-The duration is retrieved automatically when the fallback is used.
-Please note the fallback is compatible with `s` or `ms` as seconds or milliseconds and nothing else.
-
-It is possible to retrieve an animation duration through the `.getAnimationDuration(domElement, animationName)` method which returns `-1` in case of failure.
 
 
 ### New In Version 0.2
