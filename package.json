@@ -28,12 +28,10 @@
   "main": "./build/restyle.node.js",
   "scripts": {
     "test": "node test/.test.js",
-    "develop": "node-dev --respawn --no-notify --no-deps test/.test.js",
     "web": "IP=0.0.0.0 node node_modules/polpetta"
   },
   "devDependencies": {
-    "node-dev": "^3.1.0",
-    "polpetta": ">= 0.0.0",
-    "wru": ">= 0.0.0"
+    "wru": ">= 0.0.0",
+    "polpetta": ">= 0.0.0"
   }
 }
