@@ -22,14 +22,8 @@ LICENSE = template/license.before\
 # default build task
 build:
 	make clean
-	make var
 	make node
-	make amd
-	make proxy
-	make properties
 	make test
-#	make hint
-	make size
 
 # build generic version
 var:

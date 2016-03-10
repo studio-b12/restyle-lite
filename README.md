@@ -17,6 +17,7 @@ restyle-lite
 * We don’t support JS-based animations.
 * We don’t support a custom `component` or `document`.
 * restyle-lite behaves the same in node and in browsers.
+* We’ve got rid of all non-CommonJS builds.
 
 ---
 
