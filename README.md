@@ -31,6 +31,7 @@ const restyle = require('restyle-lite');
     },
   });
 ◂ '.a:{margin-top:10px;background-color:blue;}'
+```
 
 ---
 
