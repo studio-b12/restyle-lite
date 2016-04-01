@@ -30,7 +30,7 @@ const restyle = require('restyle-lite');
       'background-color': 'blue',
     },
   });
-◂ '.a:{margin-top:10px;background-color:blue;}'
+◂ '.a{margin-top:10px;background-color:blue;}'
 ```
 
 ---
