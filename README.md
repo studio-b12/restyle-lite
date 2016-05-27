@@ -1,3 +1,7 @@
+**This package is deprecated!** Please use [jss-lite](https://git.io/jss-lite) instead.
+
+***
+
 [![Travis – build status
 ](https://img.shields.io/travis/studio-b12/restyle-lite/master.svg?style=flat-square
 )](https://travis-ci.org/studio-b12/restyle-lite
