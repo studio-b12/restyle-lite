@@ -79,7 +79,7 @@
         for (i = 0; i < value.length; i++) {
           v = value[i];
           if (special) {
-            css.push(key, '{', parse(cmp, v), '}');
+            css.push(key, '{', parse(v), '}');
           } else {
             css.push(
               same ? key : component + key,
